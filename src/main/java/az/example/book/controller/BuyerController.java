@@ -1,12 +1,12 @@
 package az.example.book.controller;
 
+import az.example.book.response.BookSearchResponse;
 import az.example.book.response.ByBookResponse;
 import az.example.book.service.BuyerService;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+@RequestMapping("/Buyers")
 @RestController
 public class BuyerController {
 
@@ -16,14 +16,21 @@ public class BuyerController {
         this.buyerService = buyerService;
     }
 
-    @GetMapping("/buyers/giveBook/{bookId}")
-    public ByBookResponse giveBook(@PathVariable Long bookId) {
-        return buyerService.giveBook(bookId);
+    @GetMapping("/giveBook/{buyerId}/{bookId}")
+    public ByBookResponse giveBook(@PathVariable Long buyerId, @PathVariable Long bookId) {
+        return buyerService.giveBook(buyerId, bookId);
     }
 
 
-    @DeleteMapping
-public ByBookResponse returnBook(@PathVariable Long bookId){
-        return buyerService.returnBook(bookId);
+    @DeleteMapping("/return/{buyerId}/{bookId}")
+public ByBookResponse returnBook(@PathVariable Long buyerId, @PathVariable Long bookId){
+        return buyerService.returnBook(buyerId, bookId);
     }
+
+@GetMapping("/search")
+    public List<BookSearchResponse> search(@RequestParam(required = false) String name){
+return buyerService.search(name);
+}
+
+
 }

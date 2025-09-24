@@ -1,48 +1,32 @@
 package az.example.book.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jdk.jfr.Enabled;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 public class Seller {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
+
     private String name;
 
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
+    private List<Book> books;
 
+    public Seller() {}
 
-    public Seller(){
-
-    }
-
-
-    public Seller(Long id, String name){
+    public Seller(Long id, String name) {
         this.id = id;
         this.name = name;
-
     }
 
-    public Long getId() {
-        return id;
-    }
+    // Getters & Setters
+    public Long getId() { return id; }
+    public String getName() { return name; }
+    public List<Book> getBooks() { return books; }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setId(Long id) { this.id = id; }
+    public void setName(String name) { this.name = name; }
+    public void setBooks(List<Book> books) { this.books = books; }
 }
