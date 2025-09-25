@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 
 @Entity
 public class Buyer {
-cccc
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
